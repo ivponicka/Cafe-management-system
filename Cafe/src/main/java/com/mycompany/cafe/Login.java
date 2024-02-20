@@ -27,41 +27,31 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel5 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        login_password1 = new javax.swing.JTextField();
-        login_username1 = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        username_create = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        login_password = new javax.swing.JTextField();
+        login_username = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(300, 200, 0, 0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel5.setBackground(new java.awt.Color(204, 204, 204));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Password");
-        jPanel5.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 120, -1));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Username");
-        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 110, 100, -1));
-        jPanel5.add(login_password1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 220, 30));
-
-        login_username1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                login_username1ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(login_username1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 220, 30));
+        jPanel7.setBackground(new java.awt.Color(118, 95, 71));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel7.setText("CREATE account");
 
+        jButton3.setForeground(new java.awt.Color(102, 51, 0));
         jButton3.setText("CREATE");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -74,6 +64,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ponic\\OneDrive\\Pulpit\\cafe\\Cafe-management-system\\img\\icons8-coffee-100.png")); // NOI18N
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -83,16 +75,22 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(109, 109, 109))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(309, Short.MAX_VALUE)
+                .addGap(56, 56, 56)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addGap(28, 28, 28)
+                .addGap(29, 29, 29)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addGap(131, 131, 131))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -117,17 +115,39 @@ public class Login extends javax.swing.JFrame {
         jLabel8.setText("LOGIN account");
         jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 180, -1));
 
+        username_create.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Username", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
+        username_create.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                username_createActionPerformed(evt);
+            }
+        });
+        jPanel5.add(username_create, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        login_password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        login_password.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
+        jPanel1.add(login_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 260, 60));
+
+        login_username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        login_username.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Username", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
+        login_username.setMinimumSize(new java.awt.Dimension(64, 53));
+        login_username.setName(""); // NOI18N
+        jPanel1.add(login_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 260, 60));
+
+        jButton4.setBackground(new java.awt.Color(118, 95, 71));
+        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Login");
-        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, 220, 50));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 260, 40));
+
+        jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 360, 440));
 
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void login_username1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_username1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_login_username1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -137,6 +157,10 @@ public class Login extends javax.swing.JFrame {
         new Register().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void username_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username_createActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_username_createActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,14 +200,15 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JTextField login_password1;
-    private javax.swing.JTextField login_username1;
+    private javax.swing.JTextField login_password;
+    private javax.swing.JTextField login_username;
+    private javax.swing.JTextField username_create;
     // End of variables declaration//GEN-END:variables
 }
