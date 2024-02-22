@@ -4,6 +4,7 @@
  */
 package com.mycompany.cafe;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,14 +17,14 @@ import javax.swing.JOptionPane;
  *
  * @author ponic
  */
-public class Login extends javax.swing.JFrame {
+public class ForgotPassword extends javax.swing.JFrame {
 Connection conn;
 PreparedStatement pst;
 ResultSet rs;
     /**
-     * Creates new form Login
+     * Creates new form ForgotPassword
      */
-    public Login() throws SQLException {
+    public ForgotPassword() throws SQLException {
         initComponents();
         conn = DBConnection.getConnectionDB();
     }
@@ -47,15 +48,13 @@ ResultSet rs;
         jLabel10 = new javax.swing.JLabel();
         username_create = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        login_password = new javax.swing.JTextField();
-        login_username = new javax.swing.JTextField();
+        forgot_username = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        forgot_question = new javax.swing.JComboBox<>();
+        forgot_answer = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBounds(new java.awt.Rectangle(300, 200, 0, 0));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -159,15 +158,11 @@ ResultSet rs;
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        login_password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        login_password.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
-        jPanel1.add(login_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 260, 60));
-
-        login_username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        login_username.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Username", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
-        login_username.setMinimumSize(new java.awt.Dimension(64, 53));
-        login_username.setName(""); // NOI18N
-        jPanel1.add(login_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 260, 60));
+        forgot_username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        forgot_username.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Username", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
+        forgot_username.setMinimumSize(new java.awt.Dimension(64, 53));
+        forgot_username.setName(""); // NOI18N
+        jPanel1.add(forgot_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 260, 60));
 
         jButton4.setBackground(new java.awt.Color(118, 95, 71));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -180,70 +175,94 @@ ResultSet rs;
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 260, 40));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel8.setText("Forgot PASSWORD?");
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel8MouseClicked(evt);
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel11.setText("Forgot Password");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 180, -1));
+
+        forgot_question.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your mother's maiden name?", "What is the name of your first pet?", "What was your first car?", "What was the name of your elementary school?", "What was your favorite food as a child?" }));
+        forgot_question.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                forgot_questionActionPerformed(evt);
             }
         });
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 180, -1));
+        jPanel1.add(forgot_question, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 260, -1));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel11.setText("LOGIN account");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 180, -1));
+        forgot_answer.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        forgot_answer.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Answer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
+        forgot_answer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                forgot_answerActionPerformed(evt);
+            }
+        });
+        jPanel1.add(forgot_answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 260, -1));
 
         jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 360, 440));
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 440));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 720, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 441, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+       
+    }//GEN-LAST:event_jButton3MouseClicked
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        new Register().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton3MouseClicked
 
     private void username_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username_createActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_username_createActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        String username = login_username.getText();
-        String password = login_password.getText();
-        String sql = "select * from account where username=? and password=?";
+        String username = forgot_username.getText();
+        String answer = forgot_answer.getText();
+        int question = forgot_question.getSelectedIndex();
+        
+        String sql = "Select * from account where username=? and question=? and answer=?";
         try{
-            pst = conn.prepareStatement(sql);
-            pst.setString(1, username);
-            pst.setString(2, password);
-            rs = pst.executeQuery();
-            if(rs.next()){
-            new Menu().setVisible(true);
-            rs.close();
-            pst.close();
-            }
-        }catch (SQLException e) {
+          pst = conn.prepareStatement(sql);
+          pst.setString(1, username);
+          pst.setInt(2, question);
+          pst.setString(3, answer);
+          
+          rs = pst.executeQuery();
+          if(rs.next()){
+          JOptionPane.showMessageDialog(rootPane, "User was found");
+          }
+        } catch (HeadlessException | SQLException e){
         JOptionPane.showMessageDialog(rootPane, e);
-        } finally{
-            try {
-                rs.close();
-                pst.close();
-            } catch (Exception e){
-                 JOptionPane.showMessageDialog(null, e);
-            }
         }
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        new ForgotPassword().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jLabel8MouseClicked
+    private void forgot_answerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgot_answerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_forgot_answerActionPerformed
+
+    private void forgot_questionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgot_questionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_forgot_questionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,13 +281,13 @@ ResultSet rs;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ForgotPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -276,29 +295,29 @@ ResultSet rs;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new Login().setVisible(true);
+                    new ForgotPassword().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField forgot_answer;
+    private javax.swing.JComboBox<String> forgot_question;
+    private javax.swing.JTextField forgot_username;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JTextField login_password;
-    private javax.swing.JTextField login_username;
     private javax.swing.JTextField username_create;
     // End of variables declaration//GEN-END:variables
 }
