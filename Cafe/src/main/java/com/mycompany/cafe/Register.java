@@ -4,17 +4,28 @@
  */
 package com.mycompany.cafe;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ponic
  */
 public class Register extends javax.swing.JFrame {
-
+Connection conn;
+PreparedStatement pst;
+ResultSet rs;
     /**
      * Creates new form Login
      */
-    public Register() {
+    public Register() throws SQLException {
         initComponents();
+        conn = DBConnection.getConnectionDB();
     }
 
     /**
@@ -53,6 +64,16 @@ public class Register extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Register");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         username_create.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         username_create.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Username", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
@@ -188,6 +209,27 @@ public class Register extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_password_createActionPerformed
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+      
+       
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String username = username_create.getText();
+        String password = password_create.getText();
+        String sql = "INSERT into account(username, password) values (?,?)";
+        
+    try {
+        pst = conn.prepareStatement(sql);
+        pst.setString(1, username);
+         pst.setString(2, password);
+         pst.execute();
+         JOptionPane.showMessageDialog(null, "Account created successfully!");
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, ex);
+    }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -219,7 +261,11 @@ public class Register extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Register().setVisible(true);
+                try {
+                    new Register().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
