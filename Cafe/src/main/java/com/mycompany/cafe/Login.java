@@ -4,17 +4,28 @@
  */
 package com.mycompany.cafe;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ponic
  */
 public class Login extends javax.swing.JFrame {
-
+Connection conn;
+PreparedStatement pst;
+ResultSet rs;
     /**
      * Creates new form Login
      */
-    public Login() {
+    public Login() throws SQLException {
         initComponents();
+        conn = DBConnection.getConnectionDB();
     }
 
     /**
@@ -161,6 +172,11 @@ public class Login extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Login");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, 260, 40));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -186,6 +202,32 @@ public class Login extends javax.swing.JFrame {
     private void username_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username_createActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_username_createActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String username = login_username.getText();
+        String password = login_password.getText();
+        String sql = "select * from account where username=? and password=?";
+        try{
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, username);
+            pst.setString(2, password);
+            rs = pst.executeQuery();
+            if(rs.next()){
+            new Menu().setVisible(true);
+            rs.close();
+            pst.close();
+            }
+        }catch (SQLException e) {
+        JOptionPane.showMessageDialog(rootPane, e);
+        } finally{
+            try {
+                rs.close();
+                pst.close();
+            } catch (Exception e){
+                 JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,7 +259,11 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                try {
+                    new Login().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
