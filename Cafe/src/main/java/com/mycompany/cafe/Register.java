@@ -94,6 +94,7 @@ ResultSet rs;
         });
 
         question_create.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your mother's maiden name?", "What is the name of your first pet?", "What was your first car?", "What was the name of your elementary school?", "What was your favorite food as a child?" }));
+        question_create.setBorder(null);
 
         answer_create.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         answer_create.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Answer", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
@@ -235,25 +236,33 @@ ResultSet rs;
        
     }//GEN-LAST:event_jButton2MouseClicked
 
+    
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String username = username_create.getText();
         String password = password_create.getText();
         int question = question_create.getSelectedIndex();
         String answer = answer_create.getText();
         
+        if(username.isEmpty() || password.isEmpty() || answer.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "All of the fields needs to be filled in");
+        } else {
         String sql = "INSERT into account(username, password, question, answer) values (?,?,?,?)";
-        
-    try {
+          
+        try {
         pst = conn.prepareStatement(sql);
         pst.setString(1, username);
-         pst.setString(2, password);
-         pst.setInt(3, question);
-         pst.setString(4, answer);
-         pst.execute();
+        pst.setString(2, password);
+        pst.setInt(3, question);
+        pst.setString(4, answer);
+        pst.execute();
          JOptionPane.showMessageDialog(null, "Account created successfully!");
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, ex);
     }
+        }
+        
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void answer_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answer_createActionPerformed

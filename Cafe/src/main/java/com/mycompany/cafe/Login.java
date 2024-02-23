@@ -47,11 +47,11 @@ ResultSet rs;
         jLabel10 = new javax.swing.JLabel();
         username_create = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        login_password = new javax.swing.JTextField();
         login_username = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        login_password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(300, 200, 0, 0));
@@ -68,6 +68,8 @@ ResultSet rs;
 
         jButton3.setForeground(new java.awt.Color(102, 51, 0));
         jButton3.setText("CREATE");
+        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton3.setBorderPainted(false);
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3MouseClicked(evt);
@@ -79,7 +81,7 @@ ResultSet rs;
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ponic\\OneDrive\\Pulpit\\cafe\\Cafe-management-system\\img\\icons8-coffee-100.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\ponic\\OneDrive\\Pulpit\\cafe\\Cafe-management-system\\img\\icons8-coffee-100white.png")); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -159,10 +161,6 @@ ResultSet rs;
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        login_password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        login_password.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
-        jPanel1.add(login_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 260, 60));
-
         login_username.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         login_username.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Username", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
         login_username.setMinimumSize(new java.awt.Dimension(64, 53));
@@ -193,6 +191,9 @@ ResultSet rs;
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel11.setText("LOGIN account");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 180, -1));
+
+        login_password.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
+        jPanel1.add(login_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 260, 60));
 
         jPanel5.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 360, 440));
 
@@ -234,6 +235,8 @@ ResultSet rs;
                 this.setVisible(false);
                 rs.close();
                 pst.close();
+            } else {
+                JOptionPane.showConfirmDialog(rootPane, "Ups! Wrong login or password");
             }
         }catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, e);
@@ -308,7 +311,7 @@ ResultSet rs;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JTextField login_password;
+    private javax.swing.JPasswordField login_password;
     private javax.swing.JTextField login_username;
     private javax.swing.JTextField username_create;
     // End of variables declaration//GEN-END:variables
