@@ -201,18 +201,22 @@ ResultSet rs;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void username_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username_createActionPerformed
+    
+    }//GEN-LAST:event_username_createActionPerformed
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    try {
         new Register().setVisible(true);
         this.dispose();
+    } catch (SQLException ex) {
+        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_jButton3MouseClicked
-
-    private void username_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_username_createActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_username_createActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         String username = login_username.getText();
@@ -224,25 +228,32 @@ ResultSet rs;
             pst.setString(2, password);
             rs = pst.executeQuery();
             if(rs.next()){
-            new Menu().setVisible(true);
-            rs.close();
-            pst.close();
+                Loading loadingView = new Loading();
+                loadingView.setUploading();
+                loadingView.setVisible(true);
+                this.setVisible(false);
+                rs.close();
+                pst.close();
             }
         }catch (SQLException e) {
-        JOptionPane.showMessageDialog(rootPane, e);
+            JOptionPane.showMessageDialog(rootPane, e);
         } finally{
             try {
                 rs.close();
                 pst.close();
             } catch (Exception e){
-                 JOptionPane.showMessageDialog(null, e);
+                JOptionPane.showMessageDialog(null, e);
             }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+    try {
         new ForgotPassword().setVisible(true);
         this.dispose();
+    } catch (SQLException ex) {
+        Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_jLabel8MouseClicked
 
     /**

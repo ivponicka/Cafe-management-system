@@ -218,8 +218,12 @@ ResultSet rs;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    try {
         new Login().setVisible(true);
         this.dispose();
+    } catch (SQLException ex) {
+        Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void password_createActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_createActionPerformed

@@ -55,6 +55,7 @@ ResultSet rs;
         forgot_answer = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(300, 200, 0, 0));
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -168,6 +169,11 @@ ResultSet rs;
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Login");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -245,10 +251,10 @@ ResultSet rs;
           pst.setString(1, username);
           pst.setInt(2, question);
           pst.setString(3, answer);
-          
           rs = pst.executeQuery();
           if(rs.next()){
-          JOptionPane.showMessageDialog(rootPane, "User was found");
+          rs.close();
+          pst.close();
           }
         } catch (HeadlessException | SQLException e){
         JOptionPane.showMessageDialog(rootPane, e);
@@ -263,6 +269,17 @@ ResultSet rs;
     private void forgot_questionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgot_questionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_forgot_questionActionPerformed
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+    try {
+        Loading loadingView = new Loading();
+        loadingView.setUploading();
+        loadingView.setVisible(true);
+        this.dispose();
+    } catch (SQLException ex) {
+        Logger.getLogger(ForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }//GEN-LAST:event_jButton4MouseClicked
 
     /**
      * @param args the command line arguments
