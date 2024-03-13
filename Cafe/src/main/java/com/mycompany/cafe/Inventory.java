@@ -34,7 +34,7 @@ PreparedStatement pst;
     try {
         conn = DBConnection.getConnectionDB();
         displayTable();
-        displayFilterCategories();
+      
     } catch (SQLException e) {
        JOptionPane.showMessageDialog(rootPane, e);
     }
@@ -82,6 +82,7 @@ PreparedStatement pst;
         jLabel15 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         products_table = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(150, 50, 0, 0));
@@ -367,6 +368,12 @@ PreparedStatement pst;
             }
         });
 
+        inventory_filter_display.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Drinks", "Snacks", "Meals", "Others" }));
+        inventory_filter_display.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                inventory_filter_displayItemStateChanged(evt);
+            }
+        });
         inventory_filter_display.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inventory_filter_displayActionPerformed(evt);
@@ -403,6 +410,8 @@ PreparedStatement pst;
             }
         });
         jScrollPane1.setViewportView(products_table);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -444,38 +453,46 @@ PreparedStatement pst;
                         .addComponent(inventory_filter_display, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(454, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(376, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel14)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel6))
-                .addGap(6, 6, 6)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inventory_item, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inventory_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inventory_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inventory_add)
-                    .addComponent(inventory_edit)
-                    .addComponent(inventory_delete))
-                .addGap(32, 32, 32)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(inventory_filter_display, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel6))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(inventory_item, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inventory_category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inventory_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(inventory_add)
+                            .addComponent(inventory_edit)
+                            .addComponent(inventory_delete))
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(inventory_filter_display, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(97, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(211, 211, 211))))
         );
 
         jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 1240, 700));
@@ -608,22 +625,7 @@ PreparedStatement pst;
         // TODO add your handling code here:
     }//GEN-LAST:event_inventory_categoryActionPerformed
 
-    private void displayFilterCategories(){
-             
-        
-        String sql = "Select * from inventory";
-        try {
-           
-          Statement st =   conn.createStatement();
-           rs=pst.executeQuery("select * from inventory");
-           while(rs.next()){
-           inventory_filter_display.addItem(rs.getString("category"));
-           }
-        } catch (Exception e){
-            JOptionPane.showMessageDialog(rootPane, e);
-        }
-        
-    }
+ 
     private void inventory_filter_displayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventory_filter_displayActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inventory_filter_displayActionPerformed
@@ -637,8 +639,26 @@ PreparedStatement pst;
            inventory_category.setSelectedItem(model.getValueAt(myIndex, 2).toString());
            inventory_price.setText(model.getValueAt(myIndex, 3).toString());
     }//GEN-LAST:event_products_tableMouseClicked
+
+    private void inventory_filter_displayItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_inventory_filter_displayItemStateChanged
+        filterOption();
+    }//GEN-LAST:event_inventory_filter_displayItemStateChanged
   public void displayTable(){
     String sql = "Select id, name, category, price from inventory";
+ 
+            try {
+                pst = conn.prepareStatement(sql);
+                rs = pst.executeQuery();
+              
+                products_table.setModel(DbUtils.resultSetToTableModel(rs));
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(rootPane, e);
+            } 
+          
+  }
+  
+    public void filterOption (){
+    String sql = "Select id, name, category, price from inventory where category='"+inventory_filter_display.getSelectedItem().toString()+"'" ;
  
             try {
                 pst = conn.prepareStatement(sql);
@@ -697,6 +717,7 @@ PreparedStatement pst;
     private javax.swing.JComboBox<String> inventory_filter_display;
     private javax.swing.JTextField inventory_item;
     private javax.swing.JTextField inventory_price;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
