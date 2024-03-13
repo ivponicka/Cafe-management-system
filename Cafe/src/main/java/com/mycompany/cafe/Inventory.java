@@ -567,7 +567,16 @@ PreparedStatement pst;
     }//GEN-LAST:event_inventory_editActionPerformed
 
     private void inventory_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventory_deleteActionPerformed
-        // TODO add your handling code here:
+        String sql = "delete from inventory where id=?";
+    try {
+        pst = conn.prepareStatement(sql);
+        pst.setInt(1, key);
+        pst.execute();
+        JOptionPane.showMessageDialog(null, "Deleted successfully!");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(rootPane, e);
+    }
+        
     }//GEN-LAST:event_inventory_deleteActionPerformed
 
     private void inventory_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventory_addActionPerformed
