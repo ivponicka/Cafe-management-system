@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -80,7 +81,7 @@ PreparedStatement pst;
         inventory_category = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        products_table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(150, 50, 0, 0));
@@ -385,7 +386,7 @@ PreparedStatement pst;
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel15.setText("Category");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        products_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -396,7 +397,12 @@ PreparedStatement pst;
                 "ID", "Name", "Category", "Price"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        products_table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                products_tableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(products_table);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -536,8 +542,28 @@ PreparedStatement pst;
     }//GEN-LAST:event_customersMouseExited
 
     private void inventory_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventory_editActionPerformed
-        // TODO add your handling code here:
-        // TODO add your handling code here:
+        String product_name = inventory_item.getText();
+        String product_category = (String) inventory_category.getSelectedItem();
+        String product_price = inventory_price.getText();
+        String product_id = inventory_item.getText();
+        
+        String sql = "update inventory set name=?, category=?,  price=? where id=?" ;
+        if(product_name.isEmpty() || product_category.isEmpty()   || product_price.isEmpty()  ){
+            JOptionPane.showMessageDialog(rootPane, "All fields must be filled in");
+        } else {
+         try{
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, product_name);
+            pst.setString(2, product_category);
+             pst.setString(3, product_price);
+             pst.setInt(4, key);
+             pst.execute();
+             JOptionPane.showMessageDialog(null, "Updated successfully!");
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+        
+        }
     }//GEN-LAST:event_inventory_editActionPerformed
 
     private void inventory_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventory_deleteActionPerformed
@@ -592,14 +618,24 @@ PreparedStatement pst;
     private void inventory_filter_displayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventory_filter_displayActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inventory_filter_displayActionPerformed
+
+    int key = 0;
+    private void products_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_products_tableMouseClicked
+           DefaultTableModel model = (DefaultTableModel) products_table.getModel();
+           int myIndex = products_table.getSelectedRow();
+          key = Integer.valueOf(model.getValueAt(myIndex, 0).toString());
+           inventory_item.setText(model.getValueAt(myIndex, 1).toString());
+           inventory_category.setSelectedItem(model.getValueAt(myIndex, 2).toString());
+           inventory_price.setText(model.getValueAt(myIndex, 3).toString());
+    }//GEN-LAST:event_products_tableMouseClicked
   public void displayTable(){
-    String sql = "Select name, category, price from inventory";
+    String sql = "Select id, name, category, price from inventory";
  
             try {
                 pst = conn.prepareStatement(sql);
                 rs = pst.executeQuery();
               
-                jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+                products_table.setModel(DbUtils.resultSetToTableModel(rs));
             } catch (Exception e){
                 JOptionPane.showMessageDialog(rootPane, e);
             } 
@@ -672,7 +708,7 @@ PreparedStatement pst;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel menu;
+    private javax.swing.JTable products_table;
     // End of variables declaration//GEN-END:variables
 }
