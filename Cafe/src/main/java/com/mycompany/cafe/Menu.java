@@ -159,6 +159,11 @@ public class Menu extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("INVENTORY");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout inventoryLayout = new javax.swing.GroupLayout(inventory);
         inventory.setLayout(inventoryLayout);
@@ -589,6 +594,11 @@ public class Menu extends javax.swing.JFrame {
     private void customersMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customersMouseExited
         customers.setBackground(new Color(118,95,71));
     }//GEN-LAST:event_customersMouseExited
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        new Inventory().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel9MouseClicked
 
     /**
      * @param args the command line arguments
