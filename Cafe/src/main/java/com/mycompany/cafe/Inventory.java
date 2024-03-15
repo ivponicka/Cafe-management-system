@@ -85,6 +85,7 @@ PreparedStatement pst;
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(150, 50, 0, 0));
         setPreferredSize(new java.awt.Dimension(1069, 700));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(858, 622));
@@ -255,7 +256,12 @@ PreparedStatement pst;
         });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel12.setText("CUSTOMERS");
+        jLabel12.setText("HISTORY");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout customersLayout = new javax.swing.GroupLayout(customers);
         customers.setLayout(customersLayout);
@@ -277,6 +283,11 @@ PreparedStatement pst;
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\ponic\\OneDrive\\Pulpit\\cafe\\Cafe-management-system\\img\\icons8-log-out-50.png")); // NOI18N
         jLabel13.setText("Sign out");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Welcome back, ");
@@ -625,8 +636,8 @@ PreparedStatement pst;
             pst = conn.prepareStatement(sql);
             pst.setString(1, product_name);
             pst.setString(2, product_category);
-             pst.setString(3, product_price);
-             pst.execute();
+            pst.setString(3, product_price);
+            pst.execute();
              JOptionPane.showMessageDialog(null, "Added successfully!");
         } catch (Exception e){
             JOptionPane.showMessageDialog(rootPane, e);
@@ -650,7 +661,7 @@ PreparedStatement pst;
     private void products_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_products_tableMouseClicked
            DefaultTableModel model = (DefaultTableModel) products_table.getModel();
            int myIndex = products_table.getSelectedRow();
-          key = Integer.valueOf(model.getValueAt(myIndex, 0).toString());
+           key = Integer.valueOf(model.getValueAt(myIndex, 0).toString());
            inventory_item.setText(model.getValueAt(myIndex, 1).toString());
            inventory_category.setSelectedItem(model.getValueAt(myIndex, 2).toString());
            inventory_price.setText(model.getValueAt(myIndex, 3).toString());
@@ -676,6 +687,20 @@ PreparedStatement pst;
         new Selling().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+           try {
+           new Login().setVisible(true);
+           this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+       new History().setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jLabel12MouseClicked
   public void displayTable(){
     String sql = "Select id, name, category, price from inventory";
  
