@@ -5,39 +5,36 @@
 package com.mycompany.cafe;
 
 import java.awt.Color;
-import java.awt.print.PrinterException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
-import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ponic
  */
-public class Selling extends javax.swing.JFrame {
-
-    Connection conn;
-    ResultSet rs;
-    Statement st;
-    PreparedStatement pst;
-    
+public class History extends javax.swing.JFrame {
+Connection conn;
+PreparedStatement pst;
+ResultSet rs;
     /**
-     * Creates new form Selling
+     * Creates new form History
      */
-    public Selling() {
-        try {
-            conn = DBConnection.getConnectionDB();
-              initComponents();
-        showProducts();
-        } catch (Exception e) {
-           JOptionPane.showMessageDialog(rootPane, e);
-        }
-      
+    public History() {
+    try {
+        conn = DBConnection.getConnectionDB();
+        initComponents();
+        showHistory();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(rootPane, e);
+    }
+        
+     
     }
 
     /**
@@ -68,24 +65,8 @@ public class Selling extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        add_to_bill = new javax.swing.JButton();
-        inventory_delete = new javax.swing.JButton();
-        selling_name = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        selling_bill = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        selling_products = new javax.swing.JTable();
-        jLabel16 = new javax.swing.JLabel();
-        selling_seller = new javax.swing.JTextField();
-        selling_quantity = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        selling_print = new javax.swing.JButton();
-        selling_price = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        selling_total = new javax.swing.JTextField();
+        history = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,7 +75,6 @@ public class Selling extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(239, 234, 229));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(115, 82, 49)));
 
         jLabel11.setBackground(new java.awt.Color(118, 95, 71));
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -149,7 +129,7 @@ public class Selling extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        inventory.setBackground(new java.awt.Color(118, 95, 71));
+        inventory.setBackground(new java.awt.Color(153, 153, 153));
         inventory.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         inventory.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -167,13 +147,18 @@ public class Selling extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("INVENTORY");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout inventoryLayout = new javax.swing.GroupLayout(inventory);
         inventory.setLayout(inventoryLayout);
         inventoryLayout.setHorizontalGroup(
             inventoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inventoryLayout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
+                .addContainerGap(61, Short.MAX_VALUE)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
@@ -206,7 +191,7 @@ public class Selling extends javax.swing.JFrame {
                     .addContainerGap(76, Short.MAX_VALUE)))
         );
 
-        menu.setBackground(new java.awt.Color(153, 153, 153));
+        menu.setBackground(new java.awt.Color(118, 95, 71));
         menu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         menu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -219,6 +204,11 @@ public class Selling extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("SELLING");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
@@ -271,6 +261,11 @@ public class Selling extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setIcon(new javax.swing.ImageIcon("C:\\Users\\ponic\\OneDrive\\Pulpit\\cafe\\Cafe-management-system\\img\\icons8-log-out-50.png")); // NOI18N
         jLabel13.setText("Sign out");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Welcome back, ");
@@ -322,205 +317,54 @@ public class Selling extends javax.swing.JFrame {
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(customers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addGap(40, 40, 40))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 690));
 
-        jPanel7.setBackground(new java.awt.Color(239, 234, 229));
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setPreferredSize(new java.awt.Dimension(1040, 650));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(118, 95, 71));
-        jLabel14.setText("SELLING");
+        jLabel14.setText("HISTORY");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setText("Worker");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel6.setText("Your bill");
-
-        add_to_bill.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        add_to_bill.setText("Add to bill");
-        add_to_bill.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                add_to_billActionPerformed(evt);
-            }
-        });
-
-        inventory_delete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        inventory_delete.setText("Delete from the bill");
-        inventory_delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inventory_deleteActionPerformed(evt);
-            }
-        });
-
-        selling_bill.setModel(new javax.swing.table.DefaultTableModel(
+        history.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Name", "Price", "Quantity", "Total"
-            }
-        ));
-        jScrollPane1.setViewportView(selling_bill);
-
-        selling_products.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Category", "Price"
+                "ID", "Seller", "Date", "Total"
             }
         ));
-        selling_products.addMouseListener(new java.awt.event.MouseAdapter() {
+        history.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                selling_productsMouseClicked(evt);
+                historyMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(selling_products);
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel16.setText("Name");
-
-        selling_quantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selling_quantityActionPerformed(evt);
-            }
-        });
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel17.setText("TOTAL");
-
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel18.setText("Quantity");
-
-        selling_print.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        selling_print.setText("PRINT");
-        selling_print.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selling_printActionPerformed(evt);
-            }
-        });
-
-        selling_price.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selling_priceActionPerformed(evt);
-            }
-        });
-
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel19.setText("Price");
+        jScrollPane1.setViewportView(history);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(selling_name, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                            .addComponent(selling_quantity))
-                        .addGap(74, 74, 74)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(selling_seller, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(selling_price, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(add_to_bill, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(275, 275, 275)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(inventory_delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(selling_print, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel7Layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(selling_total, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(114, 114, 114))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addGap(291, 291, 291)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(477, Short.MAX_VALUE)))
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 778, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(jLabel16))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel14)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))))
+                .addGap(12, 12, 12)
+                .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(selling_seller, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(selling_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel18)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(selling_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(selling_price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addComponent(add_to_bill, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inventory_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(145, 145, 145)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(selling_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
-                        .addComponent(selling_print, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 56, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addGap(193, 193, 193)
-                    .addComponent(jLabel19)
-                    .addContainerGap(482, Short.MAX_VALUE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 830, 700));
@@ -530,7 +374,7 @@ public class Selling extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1077, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -557,6 +401,10 @@ public class Selling extends javax.swing.JFrame {
         dashboard.setBackground(new Color(118,95,71));
     }//GEN-LAST:event_dashboardMouseExited
 
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+
+    }//GEN-LAST:event_jLabel9MouseClicked
+
     private void inventoryMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inventoryMouseMoved
 
     }//GEN-LAST:event_inventoryMouseMoved
@@ -568,6 +416,11 @@ public class Selling extends javax.swing.JFrame {
     private void inventoryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inventoryMouseExited
         inventory.setBackground(new Color(118,95,71));
     }//GEN-LAST:event_inventoryMouseExited
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        new Selling().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel10MouseClicked
 
     private void menuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuMouseEntered
         menu.setBackground(new Color(79,63,47));
@@ -585,97 +438,32 @@ public class Selling extends javax.swing.JFrame {
         customers.setBackground(new Color(118,95,71));
     }//GEN-LAST:event_customersMouseExited
 
-    private void selling_printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selling_printActionPerformed
-        try {
-            selling_bill.print();
-            addBillToDataBase();
+    private void historyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_historyMouseClicked
+       
+    }//GEN-LAST:event_historyMouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+           try {
+           new Login().setVisible(true);
+           this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
         }
-    }//GEN-LAST:event_selling_printActionPerformed
+    }//GEN-LAST:event_jLabel13MouseClicked
 
-    public void addBillToDataBase(){
-        String sql = "insert into bill(seller,date,total) values(?,?,?)";
-        String seller = selling_seller.getText();
-        String total = selling_total.getText();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateTime ld = LocalDateTime.now();
+    
+    public void showHistory(){
+        String sql = "select id, seller, date, total from bill";
+        
         try{
             pst = conn.prepareStatement(sql);
-            pst.setString(1, seller);
-            pst.setString(2, ld.toString());
-            pst.setString(3, total);
-            pst.execute();
-            JOptionPane.showMessageDialog(rootPane, "Added");
+            rs = pst.executeQuery();
+            history.setModel(DbUtils.resultSetToTableModel(rs));
+            
         } catch (Exception e){
             JOptionPane.showMessageDialog(rootPane, e);
         }
-     }
-    private void selling_quantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selling_quantityActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_selling_quantityActionPerformed
-
-    private void selling_productsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selling_productsMouseClicked
-        DefaultTableModel model = (DefaultTableModel) selling_products.getModel();
-        int myIndex = selling_products.getSelectedRow();
-        key = Integer.valueOf(model.getValueAt(myIndex, 0).toString());
-        selling_quantity.setText("1");
-        selling_name.setText(model.getValueAt(myIndex,1).toString());
-        selling_price.setText(model.getValueAt(myIndex, 3).toString());
-    }//GEN-LAST:event_selling_productsMouseClicked
-
-    private void inventory_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inventory_deleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inventory_deleteActionPerformed
-
-    private void add_to_billActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_to_billActionPerformed
-        addProdcutsToTheBill();
-    }//GEN-LAST:event_add_to_billActionPerformed
-
-    private void selling_priceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selling_priceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_selling_priceActionPerformed
-    
-    double totalT = 0.0;
-    private void addProdcutsToTheBill(){
-      if(selling_name.getText().isEmpty() || selling_price.getText().isEmpty()){
-          JOptionPane.showMessageDialog(rootPane, "add sth");
-      } else {
-       double t = Integer.parseInt(selling_quantity.getText()) * Double.parseDouble(selling_price.getText());
-       String total = String.format("%.2f", t);
-       JOptionPane.showMessageDialog(rootPane, total);
-       DefaultTableModel model = (DefaultTableModel) selling_bill.getModel();
-       String nextRowId = Integer.toString(model.getRowCount());
-       totalT = totalT + t;
-       String tsssotal = String.format("%.2f", totalT);
-       String totalSTRINGT = Double.toString(totalT);
-       model.addRow(new Object[]{
-           Integer.valueOf(nextRowId) + 1,
-           selling_name.getText(),
-           selling_price.getText(),
-           selling_quantity.getText(),
-           total
-       });
-       selling_total.setText(tsssotal);
-      }
-      
     }
-    
-    private void showProducts(){
-         String sql = "Select id, name, category, price from inventory";
- 
-            try {
-                pst = conn.prepareStatement(sql);
-                rs = pst.executeQuery();
-              
-                selling_products.setModel(DbUtils.resultSetToTableModel(rs));
-            } catch (Exception e){
-                JOptionPane.showMessageDialog(rootPane, e);
-            } 
-        
-    }
-    
-    int key = 0;
     /**
      * @param args the command line arguments
      */
@@ -693,61 +481,45 @@ public class Selling extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Selling.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Selling.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Selling.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Selling.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Selling().setVisible(true);
+                new History().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add_to_bill;
     private javax.swing.JPanel customers;
     private javax.swing.JPanel dashboard;
     private javax.swing.JLabel dashboard_name;
+    private javax.swing.JTable history;
     private javax.swing.JPanel inventory;
-    private javax.swing.JButton inventory_delete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel menu;
-    private javax.swing.JTable selling_bill;
-    private javax.swing.JTextField selling_name;
-    private javax.swing.JTextField selling_price;
-    private javax.swing.JButton selling_print;
-    private javax.swing.JTable selling_products;
-    private javax.swing.JTextField selling_quantity;
-    private javax.swing.JTextField selling_seller;
-    private javax.swing.JTextField selling_total;
     // End of variables declaration//GEN-END:variables
 }
