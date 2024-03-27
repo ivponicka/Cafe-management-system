@@ -15,4 +15,4 @@ Inventory view
 
 Billing view
 
-![selling](https://github.com/ivponicka/Cafe-management-system/assets/56002673/4822c58c-0e15-464c-bb41-19e03b1128b1)
+![selling](https://github.com/ivponicka/Cafe-management-system/assets/56002673/d44712be-3a83-41e9-a74b-123e8f7ae38f)
